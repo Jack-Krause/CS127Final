@@ -25,19 +25,10 @@ def get_special_word():
 with open("word_list.txt", "r") as words_file:
     read_data = words_file.read()
     x = []
-    for line in read_date:
-        x += line
-    print(x)
+    read_file_list = read_data.split()
 
+def get_word_from_file(read_file_list):
+    index = random.randrange(0, len(read_file_list))
+    return read_file_list[index]
 
-
-
-
-# print(read_data)
-# for word in read_data:
-# #     print(i)
-# x = read_data
-# for i in x:
-#     print(i)
-def get_word_from_file(filename):
-    pass
+print(get_word_from_file(read_file_list))
