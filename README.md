@@ -1,1 +1,2 @@
-# CS127Final
+CS127Final
+A hangman game that utilizes modules
