@@ -1,6 +1,7 @@
 import hangman
 import words
 
+
 def select_game_and_word():
     user_game = input('''
     Which version of the game would you like to play? 
@@ -58,27 +59,31 @@ def play_game():
 
     hidden = select_game_and_word()
     hangman.start(hidden, 6)
-    while (not hangman.is_over()):
+    while hangman.guesses_left != 0:
         display_game()
         letter = input("Enter your guess: ")
-        guessed_letters += letter
+        hangman.guessed_letters += letter
         correct = hangman.guess_letter(letter)
         if correct:
             print("Good guess!")
+            continue
         else:
             print("Nope.")
-            guesses_left -= 1
+            hangman.guesses_left -= 1
+            continue
         if hangman.is_won():
             print("You win!")
+            break
         elif hangman.is_over():
             display_game()
             print("Sorry, you've lost.")
-
-    print("The word was " + hangman.get_hidden_word())
+            break
+        return hangman.guessed_letters
+    print("The word was " + hangman.hidden_word)
 
 # Execution starts here
-
-# display_game()
-# play_game()
+# select_game_and_word()
+display_game()
+play_game()
 ##select_game_and_word()
 # print(select_game_and_word())
