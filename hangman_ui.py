@@ -61,11 +61,13 @@ def play_game():
     while (not hangman.is_over()):
         display_game()
         letter = input("Enter your guess: ")
+        guessed_letters += letter
         correct = hangman.guess_letter(letter)
         if correct:
             print("Good guess!")
         else:
             print("Nope.")
+            guesses_left -= 1
         if hangman.is_won():
             print("You win!")
         elif hangman.is_over():
