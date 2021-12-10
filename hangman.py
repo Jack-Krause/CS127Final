@@ -1,5 +1,5 @@
-import hangman_ui
 # Module containing the state of a hangman game and
+
 # related functions for playing the game.
 #
 
@@ -31,13 +31,12 @@ for i in guessed_letters:
 #Hidden word is here!
 # hidden_word = 'x'
 
-def start(hidden_word, max_guesses):
+def start(hidden, guesses):
     global hidden_word, max_guesses, displayed_word, guessed_letters, guesses_left
-    hidden_word = hidden_word
-    max_guesses = 6
-    displayed_word = []
-    guessed_letter = []
-    guessed_left = []
+    hidden_word = hidden
+    max_guesses = guesses
+    guessed_letters = []
+    guesses_left = 6
 
 
 def get_hidden_word():
@@ -46,21 +45,22 @@ def get_hidden_word():
 
 
 def get_displayed_word():
+    global hidden_word
     lst1 = list(hidden_word)
     for i in range(len(lst1)):
         lst1[i] = '-'
     return lst1
 
 def get_guesses_left():
+    global guesses_left
     return guesses_left
 
-def get_guessed_letters():
-    return guessed_letters
 
 def is_over():
     if guesses_left > 0:
+        return False
+    else:
         return True
-    else: return False
 
 def is_won():
     if is_over() and displayed_word == list(hidden_word):
@@ -69,7 +69,11 @@ def is_won():
         return False
 
 def guess_letter(letter):
-    if (letter in hidden_word) and (letter not in guessed_letters):
+    if (letter in hidden_word) and (letter not in correct_guesses):
         return True
     else:
         return False
+
+def get_guessed_letters():
+    global guessed_letters
+    return guessed_letters
