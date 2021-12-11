@@ -26,7 +26,6 @@ def select_game_and_word():
         # hidden_word = words.get_word_from_file()
         # return hidden_word
 
-
 def display_game():
     '''
     Prints out the current state of the game, including a stick
@@ -52,15 +51,21 @@ def display_game():
 
 
 def play_game():
+
     '''
     Plays one round of the hangman game.
     '''
     print("Welcome to Com S 127 Hangman")
-
     hidden = select_game_and_word()
     hangman.start(hidden, 6)
-    while hangman.guesses_left != 0:
+    while (hangman.guesses_left != 0):
         display_game()
+        if hangman.displayed_word == hangman.hidden_word:
+            print("You win!")
+            break
+        if hangman.guesses_left == 0:
+            print("Sorry, you've lost.")
+            break
         letter = input("Enter your guess: ")
         hangman.guessed_letters += letter
         correct = hangman.guess_letter(letter)
@@ -71,19 +76,13 @@ def play_game():
             print("Nope.")
             hangman.guesses_left -= 1
             continue
-        if hangman.is_won():
-            print("You win!")
-            break
-        elif hangman.is_over():
-            display_game()
-            print("Sorry, you've lost.")
-            break
         return hangman.guessed_letters
     print("The word was " + hangman.hidden_word)
 
 # Execution starts here
 # select_game_and_word()
-display_game()
+# display_game()
 play_game()
 ##select_game_and_word()
 # print(select_game_and_word())
+
