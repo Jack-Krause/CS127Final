@@ -19,6 +19,7 @@ guessed_letters = []
 # The number of guesses the player has left
 guesses_left = 6
 
+
 # All correctly guessed letters
 correct_guesses = []
 for i in guessed_letters:
@@ -32,12 +33,11 @@ for i in guessed_letters:
 # hidden_word = 'x'
 
 def start(hidden, guesses):
-    global hidden_word, max_guesses, displayed_word, guessed_letters, guesses_left
+    global hidden_word, max_guesses, displayed_word, guessed_letters, guesses_left, letter
     hidden_word = hidden
     max_guesses = guesses
     guessed_letters = []
     guesses_left = 6
-
 
 def get_hidden_word():
     hidden_word = hangman_ui.select_game_and_word()
@@ -45,25 +45,35 @@ def get_hidden_word():
 
 
 def get_displayed_word():
-    global hidden_word
-    lst1 = list(hidden_word)
-    for i in range(len(lst1)):
-        lst1[i] = '-'
-    return lst1
+    global hidden_word, guessed_letters, guesses_left, displayed_word
+    str1 = list('*' * len(hidden_word))
+    str2 = hidden_word
+    string = ''
+    # for i in range(len(str2)):
+    #     for k in guessed_letters:
+    #         if k in hidden_word:
+    #             str2[i] = k
+    #         else:
+    #             continue
+    for i in range(len(hidden_word)):
+        if hidden_word[i] in guessed_letters:
+            str1[i] = hidden_word[i]
+    displayed_word = string.join(str1)
+    return displayed_word
 
 def get_guesses_left():
     global guesses_left
     return guesses_left
 
-
 def is_over():
+    global guesses_left
     if guesses_left > 0:
-        return False
-    else:
         return True
+    else:
+        return False
 
 def is_won():
-    if is_over() and displayed_word == list(hidden_word):
+    if displayed_word == hidden_word:
         return True
     else:
         return False
